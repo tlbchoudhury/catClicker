@@ -1,0 +1,12 @@
+
+
+.title {
+	text-align: center;
+}
+#catImage {
+	float: left;
+}
+#output {
+	float: right;
+	padding-left: 40%;
+}
