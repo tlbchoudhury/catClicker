@@ -30,10 +30,10 @@ var catInfo = {
 	}
 	]};
 
-
+var selectedCatIndex = 0;
 // Let's loop over the numbers in our array
 for (var i = 0; i < catInfo.cat.length; i++) {
-	// console.log(catInfo.cat[i].name + catInfo.cat[i].clicks);
+
     // This is the number we're on...
     var catClicker = catInfo.cat[i].name;
 
@@ -44,6 +44,7 @@ for (var i = 0; i < catInfo.cat.length; i++) {
     // ... and when we click, alert the value of `name`
     elem.addEventListener('click', (function(iCopy) {
         return function() {
+        	selectedCatIndex = iCopy;
 			document.getElementById("catImage").src = catInfo.cat[iCopy].img; 
 			// $("#catImage").attr("src",catInfo.cat[iCopy].img);	
         };
@@ -53,20 +54,17 @@ for (var i = 0; i < catInfo.cat.length; i++) {
 };
 
 $("body").append('<img id="catImage" src='+ '"' + catInfo.cat[0].img + '"' + 'alt="Ihis is a cat image" width= 300px heigt= 300px>');
-$("body").append('<h2 id="clickCount">');
+$("body").append('<h3 id="clickCount">');
 
-for (var i = 0; i < catInfo.cat.length; i++) {
-	// console.log(catInfo.cat[i].name + catInfo.cat[i].clicks);
-    // We're creating a DOM element for the number	 
-	 var imgElem = document.getElementById("catImage");
-	 imgElem.addEventListener('click', (function(iCopy) {
-        return function() {
-        	catInfo.cat[iCopy].clicks++;
-        	$('#clickCount').text(catInfo.cat[iCopy].name + " has been clicked " + catInfo.cat[iCopy].clicks + " times");
-			// $("#catImage").attr("src",catInfo.cat[iCopy].img);	
-        };
-    })(i));
-};
+
+$("#catImage").click(function() {
+	// console.log(selectedCatIndex);
+	catInfo.cat[selectedCatIndex].clicks+=1;	
+	// ,                                                                                                                                                                console.log("click");
+	$("#clickCount").text(catInfo.cat[selectedCatIndex].name + " has been clicked " + catInfo.cat[selectedCatIndex].clicks + " time");
+
+});
+
 
 
 
