@@ -1,6 +1,4 @@
 
-// clear the screen for testing
-
 var catInfo = {
 	"cat": [
 	{	
@@ -31,6 +29,12 @@ var catInfo = {
 	]};
 
 var selectedCatIndex = 0;
+
+$("body").append('<h3 id="clickCount">');
+$("#clickCount").text(catInfo.cat[selectedCatIndex].name + " has been clicked " + catInfo.cat[selectedCatIndex].clicks + " time");
+$("#clickCount").before('<img id="catImage" src='+ '"' + catInfo.cat[0].img + '"' + 'alt="Ihis is a cat image" width= 300px heigt= 300px>');
+
+
 // Let's loop over the numbers in our array
 for (var i = 0; i < catInfo.cat.length; i++) {
 
@@ -47,15 +51,15 @@ for (var i = 0; i < catInfo.cat.length; i++) {
         	selectedCatIndex = iCopy;
 			document.getElementById("catImage").src = catInfo.cat[iCopy].img; 
 			// $("#catImage").attr("src",catInfo.cat[iCopy].img);	
+			$("#clickCount").text(catInfo.cat[selectedCatIndex].name + " has been clicked " + catInfo.cat[selectedCatIndex].clicks + " time");
         };
     })(i));
 
-    document.body.appendChild(elem);
+    // document.body.appendChild(elem);
+    $("#catImage").before(elem);
 };
 
-$("body").append('<img id="catImage" src='+ '"' + catInfo.cat[0].img + '"' + 'alt="Ihis is a cat image" width= 300px heigt= 300px>');
-$("body").append('<h3 id="clickCount">');
-
+// $("body").append('<img id="catImage" src='+ '"' + catInfo.cat[0].img + '"' + 'alt="Ihis is a cat image" width= 300px heigt= 300px>');
 
 $("#catImage").click(function() {
 	// console.log(selectedCatIndex);
