@@ -6,7 +6,19 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
- 		<h2 id="title">Cat Clicker</h2>
+ 	<h2 id="title">Cat Clicker</h2>
+ 	<button id="adminBtn">Admin</button>
+
+<form id="form">
+	Kitty Name: <br>
+	<input id="catName" type= "text" name="catName"></br>
+	URL: <br>
+	<input id="imageurl" type= "text" name="imgURL"></br>
+	Number of Clicks: <br>
+	<input id="clickCountInput" type= "number" name= "quantity" min= "0">
+	<button id="saveBtn">Save</button>
+	<button id="cancelBtn">Cancel</button>
+</form>
 
     <script src="js/libs/jquery.min.js"></script>
 	<script src="js/script.js"></script>

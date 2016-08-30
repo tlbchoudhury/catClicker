@@ -1,102 +1,109 @@
+$(function(){
 
-var catInfo = {
-	"cat": [
-	{	
-		"name" : "Bob",
-		"img": "image/kitten1.jpg",
-		"clicks": 0
-	},
-	{		
-		"name": "Potato", 
-		"img": "image/kitten2.jpg",
-		"clicks": 0
-	},
-	{		
-		"name": "Ninja", 
-		"img": "image/kitten3.jpg",
-		"clicks": 0
-	},
-	{	
-		"name": "Peanut",
-		"img": "image/kitten4.jpg",
-		"clicks": 0
-	},
-	{		
-		"name": "Fluffy",
-		"img": "./image/kitten5.jpg",
-		"clicks": 0
-	}
-	]};
-
-var selectedCatIndex = 0;
-
-$("body").append('<h3 id="clickCount">');
-$("#clickCount").text(catInfo.cat[selectedCatIndex].name + " has been clicked " + catInfo.cat[selectedCatIndex].clicks + " time");
-$("#clickCount").before('<img id="catImage" src='+ '"' + catInfo.cat[0].img + '"' + 'alt="Ihis is a cat image" width= 300px heigt= 300px>');
+    var model = {
+    	"currentCatIndex": null,
+    	"catInfo": [
+				{	
+					"name" : "Bob",
+					"img": "image/kitten1.jpg",
+					"clicks": 0
+				},
+				{		
+					"name": "Potato", 
+					"img": "image/kitten2.jpg",
+					"clicks": 0
+				},
+				{		
+					"name": "Ninja", 
+					"img": "image/kitten3.jpg",
+					"clicks": 0
+				},
+				{	
+					"name": "Peanut",
+					"img": "image/kitten4.jpg",
+					"clicks": 0
+				},
+				{		
+					"name": "Fluffy",
+					"img": "./image/kitten5.jpg",
+					"clicks": 0
+				}
+			]
+    };
 
 
-// Let's loop over the numbers in our array
-for (var i = 0; i < catInfo.cat.length; i++) {
+ 	var octopus = {
+		
+	    init: function() {
+	    	model.currentCatIndex = 0;
+            view.init();
+            view.render();
+            view.adminBtnClick();
+            view.saveBtnClick();
+        },
 
-    // This is the number we're on...
-    var catClicker = catInfo.cat[i].name;
+        clickCount: function() {
+ 			model.catInfo[model.currentCatIndex].clicks+=1;	
+        }
+	};
 
-    // We're creating a DOM element for the number
-    var elem = document.createElement('div');
-    elem.textContent = catClicker;
+	var view = {
+		init: function() {
+			$("body").append('<h3 id="clickCount"></h3>');
+			$("#clickCount").text(model.catInfo[model.currentCatIndex].name + " has been clicked " + model.catInfo[model.currentCatIndex].clicks + " time");
+			$("#clickCount").before('<img id="catImage" src='+ '"' + model.catInfo[0].img + '"' + 'alt="Ihis is a cat image" width= 300px heigt= 300px>');
 
-    // ... and when we click, alert the value of `name`
-    elem.addEventListener('click', (function(iCopy) {
-        return function() {
-        	selectedCatIndex = iCopy;
-			document.getElementById("catImage").src = catInfo.cat[iCopy].img; 
-			// $("#catImage").attr("src",catInfo.cat[iCopy].img);	
-			$("#clickCount").text(catInfo.cat[selectedCatIndex].name + " has been clicked " + catInfo.cat[selectedCatIndex].clicks + " time");
-        };
-    })(i));
+	     // Let's loop over the numbers in our array
+			for (var i = 0; i < model.catInfo.length; i++) {
 
-    // document.body.appendChild(elem);
-    $("#catImage").before(elem);
-};
+			    // This is the number we're on...
+			    var catClicker = model.catInfo[i].name;
 
-// $("body").append('<img id="catImage" src='+ '"' + catInfo.cat[0].img + '"' + 'alt="Ihis is a cat image" width= 300px heigt= 300px>');
+			    // We're creating a DOM element for the number
+			    var elem = document.createElement('div');
+			    elem.textContent = catClicker;
 
-$("#catImage").click(function() {
-	// console.log(selectedCatIndex);
-	catInfo.cat[selectedCatIndex].clicks+=1;	
-	// ,                                                                                                                                                                console.log("click");
-	$("#clickCount").text(catInfo.cat[selectedCatIndex].name + " has been clicked " + catInfo.cat[selectedCatIndex].clicks + " time");
+			    // ... and when we click, alert the value of `name`
+			    elem.addEventListener('click', (function(iCopy) {
+			        return function() {
+			        	model.currentCatIndex = iCopy;
+						document.getElementById("catImage").src = model.catInfo[iCopy].img; 
+						$("#clickCount").text(model.catInfo[model.currentCatIndex].name + " has been clicked " + model.catInfo[model.currentCatIndex].clicks + " time");		
+			        
+			        };
+			    })(i));
+			    $("#catImage").before(elem);
+			}
+		   },
+        
+		render: function() {
+			$("#catImage").click(function() {
+				octopus.clickCount(); 
+				$("#clickCount").text(model.catInfo[model.currentCatIndex].name + " has been clicked " + model.catInfo[model.currentCatIndex].clicks + " time");
+			})	
+    	},
+
+    	adminBtnClick: function() {
+    		$("#adminBtn").click(function() {
+    			$("form").toggle();
+    			$("#catName").val(model.catInfo[model.currentCatIndex].name);
+    			$("#imageurl").val(model.catInfo[model.currentCatIndex].img);
+    			$("#clickCountInput").val(model.catInfo[model.currentCatIndex].clicks);
+    		})
+    	},
+
+    	saveBtnClick: function() {
+    		$("#saveBtn").click(function() { 
+    			console.log(model.catInfo[model.currentCatIndex].name);
+    			// model.catInfo[model.currentCatIndex].name= cn;
+    			model.catInfo[model.currentCatIndex].name= $("#catName").val();
+    			model.catInfo[model.currentCatIndex].img= $("#imageurl").val();
+    			model.catInfo[model.currentCatIndex].clicks= $("#clickCountInput").val(); 
+    			console.log(model.catInfo[model.currentCatIndex].name);
+    			})
+    	}
+	};
+	octopus.init();
 
 });
-
-
-
-
-// var counter1 = 0;
-// var counter2 = 0;
-
-// $("#name1").text("Bob");
-
-// $("#catImage1").click(function() {
-// 	// console.log("click");
-// 	counter1++;
-//     $("#output1").text("Number of clicks: " + counter1);
-// });
-
-// $("#name2").text("Bob jr");
-
-// $("#catImage2").click(function() {
-// 	// console.log("click");k
-// 	counter2++;
-//     $("#output2").text("Number of clicks: " + counter2);
-// });
-
-
- 	  //the element has been clicked... do stuff here
-
-
-
-
-
-
 

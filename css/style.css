@@ -6,3 +6,12 @@
 #catImage {
 	margin-top: 40px;
 }
+#form {
+	position: absolute;
+	bottom:5%;
+	display: none;
+}
+#adminBtn {
+	position: absolute;
+	bottom: 25%;
+}
