@@ -35,11 +35,8 @@ $(function(){
  	var octopus = {
 		
 	    init: function() {
-	    	// $("body").append('<h3 id="clickCount"></h3>');
-	    	// $("#clickCount").before('<img id="catImage" src='+ '"' + model.catInfo[0].img + '"' + 'alt="Ihis is a cat image" width= 300px heigt= 300px>');
 	    	model.currentCatIndex = 0;
             view.init();
-            // view.render();
             view.saveBtnClick();
             view.adminBtnClick();
             
@@ -102,17 +99,15 @@ $(function(){
 
     	saveBtnClick: function() {
     		$("#saveBtn").click(function() { 
-    			// console.log(model.catInfo[model.currentCatIndex].name);
-    			// model.catInfo[model.currentCatIndex].name= cn;
+    			$("form").toggle();
     			model.catInfo[model.currentCatIndex].name= $("#catName").val();
     			model.catInfo[model.currentCatIndex].img= $("#imageurl").val();
-    			model.catInfo[model.currentCatIndex].clicks= $("#clickCountInput").val(); 
+    			model.catInfo[model.currentCatIndex].clicks= Number($("#clickCountInput").val()); 
     			console.log(model.catInfo[model.currentCatIndex].name);
     			console.log(model.catInfo[model.currentCatIndex].img);
     			console.log(model.catInfo[model.currentCatIndex].clicks);
 
 				view.init();
-				console.log("tried to call view . init");
     		});
     	}
 	};
